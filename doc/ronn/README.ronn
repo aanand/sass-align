@@ -3,9 +3,9 @@ sass-align(1) -- nicely align property values in .sass files
 
 ## Synopsis
 
-`sass-align` <file> <file><br>
-`sass-align` `-s`|`--stdin` [<file>]<br>
-`sass-align` `-e`|`--edit-in-place` <file>...<br>
+`sass-align` <in-file> <out-file><br>
+`sass-align` `-s`|`--stdin` [<out-file>]<br>
+`sass-align` `-e`|`--edit-in-place` <in-file> [<in-file>...]<br>
 `sass-align` `-R`|`--recursive` <directory>
 
 ## Installation

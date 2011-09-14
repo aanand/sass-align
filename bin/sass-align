@@ -13,7 +13,10 @@ options = {
 
 opts = OptionParser.new do |opts|
   opts.banner = <<EOB
-Usage: sass-align [options] [FILES...]
+Usage: sass-align <in-file> <out-file>
+       sass-align --stdin [<out-file>]
+       sass-align --edit-in-place <in-file> [<in-file>...]
+       sass-align --recursive <directory>
 
 Run 'sass-align --help' for more information.
 
