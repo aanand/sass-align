@@ -5,7 +5,10 @@ Gem::Specification.new do |s|
   s.email       = "aanand.prasad@gmail.com"
   s.homepage    = "https://github.com/aanand/sass-format"
   s.summary     = "Command-line tool to align property values nicely in .sass files"
-  s.files       = ["bin/sass-format"]
+
+  man_files = Dir.glob("doc/man/*")
+
+  s.files       = `git ls-files`.split("\n") + man_files
   s.executables = ["sass-format"]
 end
 
