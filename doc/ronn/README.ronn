@@ -1,16 +1,16 @@
-sass-format(1) -- nicely align property values in .sass files
+sass-align(1) -- nicely align property values in .sass files
 =============================================================
 
 ## Synopsis
 
-`sass-format` <file> <file><br>
-`sass-format` `-s`|`--stdin` [<file>]<br>
-`sass-format` `-e`|`--edit-in-place` <file>...<br>
-`sass-format` `-R`|`--recursive` <directory>
+`sass-align` <file> <file><br>
+`sass-align` `-s`|`--stdin` [<file>]<br>
+`sass-align` `-e`|`--edit-in-place` <file>...<br>
+`sass-align` `-R`|`--recursive` <directory>
 
 ## Description
 
-sass-format is a command-line tool to format .sass files in the mildly idiosyncratic style used at [Unspace](http://unspace.ca). That means:
+sass-align is a command-line tool to format .sass files in the mildly idiosyncratic style used at [Unspace](http://unspace.ca). That means:
 
 1. All property values and arguments to `@extend` calls are placed at an (at least) 30-character left offset.
 2. Unless they start with a `-` (e.g. `left: -30px`) or a `.` (e.g. `@extend .button`), in which case they're shifted left 1 character.

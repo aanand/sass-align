@@ -13,9 +13,9 @@ options = {
 
 opts = OptionParser.new do |opts|
   opts.banner = <<EOB
-Usage: sass-format [options] [FILES...]
+Usage: sass-align [options] [FILES...]
 
-Run 'sass-format --help' for more information.
+Run 'sass-align --help' for more information.
 
 EOB
 
