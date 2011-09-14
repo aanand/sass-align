@@ -1,7 +1,9 @@
 html = "index.html"
-ronn = "README.ronn"
+ronn = "tmp/README.ronn"
 
-file ronn do
+directory "tmp"
+
+file ronn => "tmp" do
   sh "git show master:doc/ronn/README.ronn > #{ronn}"
 end
 
