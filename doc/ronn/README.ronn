@@ -8,6 +8,10 @@ sass-align(1) -- nicely align property values in .sass files
 `sass-align` `-e`|`--edit-in-place` <file>...<br>
 `sass-align` `-R`|`--recursive` <directory>
 
+## Installation
+
+`gem install sass-align`
+
 ## Description
 
 sass-align is a command-line tool to format .sass files in the mildly idiosyncratic style used at [Unspace](http://unspace.ca). That means:
