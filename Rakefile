@@ -8,11 +8,9 @@ begin
     ronn     = "doc/ronn/#{basename}.ronn"
     roff     = "doc/roff/#{basename}"
     man      = "doc/man/#{basename}.txt"
-    html     = "doc/html/index.html"
 
     directory "doc/roff"
     directory "doc/man"
-    directory "doc/html"
 
     file roff => [ronn, "doc/roff"] do
       sh "ronn --roff --pipe #{ronn} > #{roff}"
