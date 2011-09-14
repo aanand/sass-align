@@ -1,5 +1,12 @@
 task :default => "man:all"
 
+directory "tmp"
+
+task :gem => "tmp" do
+  sh "gem build sass-align.gemspec"
+  sh "mv sass-align-*.gem tmp"
+end
+
 begin
   require "ronn"
 
