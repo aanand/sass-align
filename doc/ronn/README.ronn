@@ -43,3 +43,11 @@ sass-align is a command-line tool to format .sass files in the mildly idiosyncra
   * `-o N`, `--offset N`:
     Specify left character offset for property values (default 30).
 
+## Bugs
+
+Report bugs and get righteously indignant about style decisions at [the Github page](https://github.com/aanand/sass-align).
+
+## Copyright
+
+Copyright 2011 by [Aanand Prasad](http://aanandprasad.com) under the MIT license (see the LICENSE file).
+
