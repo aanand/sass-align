@@ -1,0 +1,111 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'stringio'
+
+read_from_stdin = false
+edit_in_place        = false
+recursive       = false
+
+options = {
+  :offset => 30
+}
+
+opts = OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename($0)} [options] [INPUT] [OUTPUT]"
+
+  opts.on '-s', '--stdin', 'Read input from standard input instead of an input file' do |v|
+    read_from_stdin = true
+  end
+
+  opts.on '-e', '--edit-in-place', "Edit files in place. Make sure you've backed them up (preferably using version control)." do |v|
+    edit_in_place = true
+  end
+
+  opts.on '-R', '--recursive', "Format all the files in a directory. Implies the `-e' flag." do |v|
+    recursive = true
+  end
+
+  opts.on '-o N', '--offset N', Integer, "Specify left character offset for property values (default 30)" do |v|
+    options[:offset] = v
+  end
+end
+
+begin
+  opts.parse!
+rescue OptionParser::ParseError => e
+  $stderr.puts e
+  $stderr.puts
+  $stderr.puts opts
+  exit -1
+end
+
+if read_from_stdin and (edit_in_place or recursive)
+  $stderr.puts "`--stdin' cannot be combined with `--edit-in-place' or `--recursive'."
+  exit -1
+end
+
+def format(input, output, options)
+  input  = File.open(input)       if input.is_a?(String)
+  output = File.open(output, 'w') if output.is_a?(String)
+
+  while line = input.gets
+    if match = line.match(/^(\s*)(@extend|:[a-z\-]+|[a-z\-]+:)(\s+)(?=\S)(.+?)(\s*)$/)
+      offset = options[:offset]
+      offset -= 1 if ['-', '.'].include?(match[4][0..0])
+
+      left  = (match[1] + match[2]).ljust(offset-1)
+      right = match[4]
+
+      output.puts(left + " " + right)
+    else
+      output.puts(line)
+    end
+  end
+rescue
+  input.close_read   if input.respond_to?(:close_read)
+  output.close_write if output.respond_to?(:close_write)
+  raise
+end
+
+def format_in_place(path, options)
+  output = StringIO.new
+  format(path, output, options)
+  File.open(path, 'w') { |f| f.write(output.string) }
+end
+
+if recursive
+  dir = ARGV.shift
+
+  unless File.directory?(dir)
+    $stderr.puts "Not a directory: #{dir}"
+    exit -1
+  end
+
+  Dir.glob(File.join(dir, "**/*.sass")).each do |path|
+    format_in_place(path, options)
+    $stderr.puts "formatted #{path}"
+  end
+elsif edit_in_place
+  ARGV.each do |path|
+    format_in_place(path, options)
+  end
+else
+  input = if read_from_stdin
+            STDIN
+          elsif ARGV.any?
+            ARGV.shift
+          else
+            $stderr.puts opts
+            exit -1
+          end
+
+  output = if ARGV.any?
+             ARGV.shift
+           else
+             STDOUT
+           end
+
+  format(input, output, options)
+end
+
