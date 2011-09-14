@@ -1,4 +1,5 @@
 *.gem
 /doc/roff
 /doc/man
+/tmp
 
